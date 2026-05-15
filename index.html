@@ -5,433 +5,171 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>先进封装与集成芯片 - 论文选题状态</title>
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; font-size: 14px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        h1 { color: #1a365d; text-align: center; margin-bottom: 8px; font-size: 24px; }
-        .header-info { text-align: center; color: #64748b; margin-bottom: 20px; font-size: 13px; }
-        
-        /* 状态图例 */
-        .legend { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
-        .legend-item { display: flex; align-items: center; gap: 6px; }
-        .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot-available { background: #22c55e; }
-        .dot-selected { background: #3b82f6; }
-        .dot-inactive { background: #d1d5db; }
-        
-        /* 论文分类 */
-        .category { margin-bottom: 24px; }
-        .category-title { 
-            background: linear-gradient(135deg, #1e40af, #3b82f6); 
-            color: white; 
-            padding: 10px 16px; 
-            border-radius: 8px 8px 0 0;
-            font-weight: 600;
-            font-size: 15px;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
         }
-        .paper-table { 
-            width: 100%; 
-            border-collapse: collapse; 
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
             background: white;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
-        .paper-table th { 
-            background: #f8fafc; 
-            padding: 10px 12px; 
-            text-align: left; 
-            font-weight: 600; 
-            color: #475569;
-            border-bottom: 2px solid #e2e8f0;
-            font-size: 13px;
-        }
-        .paper-table td { 
-            padding: 10px 12px; 
-            border-bottom: 1px solid #e2e8f0; 
-            vertical-align: middle;
-        }
-        .paper-table tr:last-child td { border-bottom: none; }
-        
-        /* 论文ID样式 */
-        .paper-id { 
-            font-weight: 600; 
-            color: #1e40af; 
-            width: 60px;
-        }
-        
-        /* 选题状态 */
-        .status { width: 100px; text-align: center; }
-        .status-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
+        th {
+            background-color: #0066cc;
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
             font-weight: 500;
         }
-        .status-available { background: #dcfce7; color: #166534; }
-        .status-selected { background: #dbeafe; color: #1e40af; }
-        .status-inactive { background: #f1f5f9; color: #64748b; }
-        
-        /* 已选学生信息 */
-        .student-info { font-size: 12px; color: #64748b; }
-        .student-name { font-weight: 600; color: #334155; }
-        
-        /* 论文信息 */
-        .paper-title { max-width: 500px; }
-        .paper-authors { color: #64748b; font-size: 12px; }
-        .paper-venue { color: #94a3b8; font-size: 11px; white-space: nowrap; }
-        
-        /* 统计信息 */
-        .stats { 
-            display: flex; 
-            justify-content: center; 
-            gap: 30px; 
-            margin: 20px 0;
-            flex-wrap: wrap;
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #eee;
         }
-        .stat-item { text-align: center; }
-        .stat-number { font-size: 28px; font-weight: 700; color: #1e40af; }
-        .stat-label { color: #64748b; font-size: 12px; }
-        
-        .footer { text-align: center; color: #94a3b8; font-size: 12px; margin-top: 30px; padding: 20px; }
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        .status-available {
+            color: #28a745;
+            font-weight: 500;
+        }
+        .status-selected {
+            color: #dc3545;
+            font-weight: 500;
+        }
+        .category-header {
+            background-color: #e9ecef;
+            font-weight: 600;
+        }
+        .summary {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .summary h3 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        .stats {
+            display: flex;
+            gap: 30px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0066cc;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📚 先进封装与集成芯片</h1>
-        <p class="header-info">2026 Spring · 课程论文汇报选题状态<br>上次更新时间：2026-05-14 22:53</p>
-        
-        
+    <h1>📚 先进封装与集成芯片 - 论文选题状态</h1>
+    <p class="subtitle">2026 Spring | 更新日期: 2026-05-15</p>
+    
+    <div class="summary">
+        <h3>📊 统计概览</h3>
         <div class="stats">
             <div class="stat-item">
-                <div class="stat-number">39</div>
-                <div class="stat-label">论文总数</div>
+                <div class="stat-number">30</div>
+                <div class="stat-label">可选论文</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">8</div>
-                <div class="stat-label">已选题</div>
+                <div class="stat-number">12</div>
+                <div class="stat-label">已选论文</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">31</div>
-                <div class="stat-label">可选</div>
+                <div class="stat-number">18</div>
+                <div class="stat-label">可选论文</div>
             </div>
-        </div>
-
-                <div class="stat-label">论文总数</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">8</div>
-                <div class="stat-label">已选题</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">31</div>
-                <div class="stat-label">可选</div>
-            </div>
-        </div>
-        
-        <div class="legend">
-            <div class="legend-item"><div class="legend-dot dot-available"></div>可选</div>
-            <div class="legend-item"><div class="legend-dot dot-selected"></div>已选</div>
-        </div>
-
-        <div class="category">
-            <div class="category-title">Advanced Packaging</div>
-            <table class="paper-table">
-                <thead>
-                    <tr>
-                        <th>编号</th>
-                        <th>状态</th>
-                        <th>学生</th>
-                        <th>论文题目</th>
-                        <th>会议</th>
-             <td><span class="student-name">马歆凯</span></td>        <tbody>
-
-                    <tr>
-                        <td class="paper-id">1.1</td>
-                        <td class="status"><span class="status-badge status-selected">✓ 已选</span></td>
-                        <td><span class="student-name">马歆凯</span></td>
-                        <td class="paper-title">K. Sakuma et al., "D2W and W2W Hybrid Bonding System with Below 2.5 Micron Pitch...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.2</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">G. Van der Plas and E. Beyne, "Design and Technology Solutions for 3D Integrated...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.3</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">H. Jang et al., "Reliability Performance of S-Connect Module (Bridge Technology)...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.4</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">C. C. B. Pulido et al., "Direct Bonded Heterogeneous Integration (DBHi): Surface...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.5</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">Y.-H. Lin et al., "Multilayer RDL Interposer for Heterogeneous Device and Module...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.6</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">J. You et al., "Electrical Performances of Fan-Out Embedded Bridge,"</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.7</td>
-                        <td class="status"><span class="status-badge status-selected">✓ 已选</span></td>
-                        <td><span class="student-name">朱品润</span></td>
-                        <td class="paper-title">Y.-C. Hu et al., "CoWoS Architecture Evolution for Next Generation HPC on 2.5D S...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.8</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">B. Fujun et al., "A Stacked Embedded DRAM Array for LPDDR4/4X using Hybrid Bondi...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.9</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">A. Elsherbini et al., "Enabling Next Generation 3D Heterogeneous Integration Arc...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.10</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">V. Moroz et al., "3DIC System-Technology Co-Optimization with a Focus on the Int...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.11</td>
-                        <td class="status"><span class="status-badge status-selected">✓ 已选</span></td>
-                        <td><span class="student-name">谌欣萍</span></td>
-                        <td class="paper-title">Yukai Chen et al., "Breaking Thermal Bottleneck in 3D HBM-on-GPU Integration via...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.12</td>
-                        <td class="status"><span class="status-badge status-selected">✓ 已选</span></td>
-                        <td><span class="student-name">刘力铭</span></td>
-                        <td class="paper-title">G. Duan et al., "EMIB-T (TSV) Advanced Packaging Technology EMIB's Next Evolutio...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.13</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">G. Naderi et al., "Enabling Chip-To-Wafer Hybrid Bonding Scaling to 1Um Pitch Wi...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">1.14</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">M.-H. Wu et al., "Signal, Power, and Thermal Integrity Co-Design for AI Accelera...</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="category">
-            <div class="category-title">Chiplet Architecture</div>
-            <table class="paper-table">
-                <thead>
-                    <tr>
-                        <th>编号</th>
-                        <th>状态</th>
-                        <th>学生</th>
-                        <th>论文题目</th>
-                        <th>会议</th>
-             <td><span class="student-name">田宇生</span></td>        <tbody>
-
-                    <tr>
-                        <td class="paper-id">2.1</td>
-                        <td class="status"><span class="status-badge status-selected">✓ 已选</span></td>
-                        <td><span class="student-name">田宇生</span></td>
-                        <td class="paper-title">W. Gomes et al., "Ponte Vecchio: A Multi-Tile 3D Stacked Processor for Exascale ...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.2</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">A. Smith et al., "AMD Instinct MI300 Series Modular Chiplet Package – HPC and AI...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.3</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">D. Gaitonde, "AMD Next-Generation FPGA Built from Chiplets,"</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.4</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">C. Gianos, "Architecting for Flexibility and Value with Next Gen Intel Xeon Proc...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.5</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">J. Wuu et al., "Coevolution of Chiplet Technology and Cache Architecture for AI ...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.6</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">S. R. Srinivasa et al., "A 300MB SRAM, 20Tb/s Bandwidth Scalable Heterogenous 2....</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.7</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">I. Lee et al., "Extremely Large 3.5D Heterogeneous Integration for the Next-Gene...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.8</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">J. Cai et al., "Gemini: Mapping and Architecture Co-exploration for Large-scale ...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.9</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">T. F. Wu et al., "11.2 A 3D integrated Prototype System-on-Chip for Augmented Re...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.10</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">P. C. Knag et al., "10.6 A Hybrid-Bonded 12.1Tops/mm2 56-Core DNN Processor with...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.11</td>
-                        <td class="status"><span class="status-badge status-selected">✓ 已选</span></td>
-                        <td><span class="student-name">陈敬逸</span></td>
-                        <td class="paper-title">C.-H. Yu et al., "A Quad-Chiplet AI SoC with Full-Chip Scalable Mesh Over 16Gb/s...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.12</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">Xingmao Yu et al., "Cramming a Data Center into One Cabinet, a Co-Exploration of...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.13</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">(空)</td></tr>
-
-                    <tr>
-                        <td class="paper-id">2.14</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">(空)</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="category">
-            <div class="category-title">Interconnect</div>
-            <table class="paper-table">
-                <thead>
-                    <tr>
-                        <th>编号</th>
-                        <th>状态</th>
-                        <th>学生</th>
-                        <th>论文题目</th>
-                        <th>会议</th>
-             <td><span class="student-name">张子越</span></td>        <tbody>
-
-                    <tr>
-                        <td class="paper-id">3.1</td>
-                        <td class="status"><span class="status-badge status-selected">✓ 已选</span></td>
-                        <td><span class="student-name">张子越</span></td>
-                        <td class="paper-title">D. Das Sharma et al., "Universal Chiplet Interconnect Express (UCIe): An Open In...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">3.2</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">Das Sharma et al., "High-performance, power-efficient three-dimensional system-i...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">3.3</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">J. H. Cho et al., "A 1.2V 64Gb 341GB/S HBM2 stacked DRAM with spiral point-to-po...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">3.4</td>
-                        <td class="status"><span class="status-badge status-selected">✓ 已选</span></td>
-                        <td><span class="student-name">冯肖迪</span></td>
-                        <td class="paper-title">Y. Nishi et al., "A 0.297-pJ/Bit 50.4-Gb/s/Wire Inverter-Based Short-Reach Simul...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">3.5</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">M.-S. Lin et al., "36.1 A 32Gb/s 10.5Tb/s/mm 0.6pJ/b UCIe-Compliant Low-Latency ...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">3.6</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">D. T. Melek et al., "A 0.29pJ/b 5.27Tb/s/mm UCIe Advanced Package Link in 3nm Fi...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">3.7</td>
-                        <td class="status"><span class="status-badge status-selected">✓ 已选</span></td>
-                        <td><span class="student-name">曾靖淞</span></td>
-                        <td class="paper-title">K. Kim et al., "A 0.275pJ/b 42Gb/s/pin Clock-Referenced PAM3 Transceiver Toleran...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">3.8</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">J. Gu et al., "A 32Gb/s 0.36pJ/bit 3nm Chiplet IO Using 2.5D CoWoS Package with ...</td></tr>
-
-                    <tr>
-                        <td class="paper-id">3.9</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">W.-C. Chen et al., "8.2 A 32Gb/s 12.35Tb/s/mm2 0.36pJ/b UCIe-Like Die-to-Die Int...</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="category">
-            <div class="category-title">Self-Proposed</div>
-            <table class="paper-table">
-                <thead>
-                    <tr>
-                        <th>编号</th>
-                        <th>状态</th>
-                        <th>学生</th>
-                        <th>论文题目</th>
-                        <th>会议</th>
-             <td>-</td>r>
-                </thead>
-                <tbody>
-
-                    <tr>
-                        <td class="paper-id">4.1</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">(待学生申请)</td></tr>
-
-                    <tr>
-                        <td class="paper-id">4.2</td>
-                        <td class="status"><span class="status-badge status-available">可选</span></td>
-                        <td>-</td>
-                        <td class="paper-title">(待学生申请)</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="footer">
-            📌 若接近选满会补充新论文池 | 选题情况实时更新
         </div>
     </div>
+
+    <h2>📋 论文池</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:80px">论文ID</th>
+                <th style="width:100px">类别</th>
+                <th>论文题目</th>
+                <th style="width:100px">来源</th>
+                <th style="width:120px">状态</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="category-header">
+                <td colspan="5">Advanced Packaging (先进封装)</td>
+            </tr>
+            <tr><td>1.1</td><td>Advanced Packaging</td><td>K. Sakuma et al., "D2W and W2W Hybrid Bonding System with Below 2.5 Micron Pitch for 3D Chiplet AI Applications,"</td><td>IEDM 2024</td><td class="status-selected">已选-马歆凯</td></tr>
+            <tr><td>1.2</td><td>Advanced Packaging</td><td>G. Van der Plas and E. Beyne, "Design and Technology Solutions for 3D Integrated High Performance Systems,"</td><td>VLSI 2021</td><td class="status-available">未选</td></tr>
+            <tr><td>1.3</td><td>Advanced Packaging</td><td>H. Jang et al., "Reliability Performance of S-Connect Module (Bridge Technology) for Heterogeneous Integration Packaging,"</td><td>ECTC 2023</td><td class="status-selected">已选-钟越</td></tr>
+            <tr><td>1.4</td><td>Advanced Packaging</td><td>C. C. B. Pulido et al., "Direct Bonded Heterogeneous Integration (DBHi): Surface Bridge Approach for Die Tiling,"</td><td>ECTC 2023</td><td class="status-available">未选</td></tr>
+            <tr><td>1.5</td><td>Advanced Packaging</td><td>Y.-H. Lin et al., "Multilayer RDL Interposer for Heterogeneous Device and Module Integration,"</td><td>ECTC 2019</td><td class="status-available">未选</td></tr>
+            <tr><td>1.6</td><td>Advanced Packaging</td><td>J. You et al., "Electrical Performances of Fan-Out Embedded Bridge,"</td><td>ECTC 2021</td><td class="status-available">未选</td></tr>
+            <tr><td>1.7</td><td>Advanced Packaging</td><td>Y.-C. Hu et al., "CoWoS Architecture Evolution for Next Generation HPC on 2.5D System in Package,"</td><td>ECTC 2023</td><td class="status-selected">已选-朱品润</td></tr>
+            <tr><td>1.8</td><td>Advanced Packaging</td><td>B. Fujun et al., "A Stacked Embedded DRAM Array for LPDDR4/4X using Hybrid Bonding 3D Integration with 34GB/s/1Gb 0.88pJ/b Logic-to-Memory Interface,"</td><td>IEDM 2020</td><td class="status-available">未选</td></tr>
+            <tr><td>1.9</td><td>Advanced Packaging</td><td>A. Elsherbini et al., "Enabling Next Generation 3D Heterogeneous Integration Architectures on Intel Process,"</td><td>IEDM 2022</td><td class="status-selected">已选-刘小凡</td></tr>
+            <tr><td>1.10</td><td>Advanced Packaging</td><td>V. Moroz et al., "3DIC System-Technology Co-Optimization with a Focus on the Interplay of Thermal, Power, Timing, and Stress Effects,"</td><td>VLSI 2024</td><td class="status-available">未选</td></tr>
+            <tr><td>1.11</td><td>Advanced Packaging</td><td>Yukai Chen et al., "Breaking Thermal Bottleneck in 3D HBM-on-GPU Integration via System-Technology Co-Optimization,"</td><td>IEDM 2025</td><td class="status-selected">已选-谌欣萍</td></tr>
+            <tr><td>1.12</td><td>Advanced Packaging</td><td>G. Duan et al., "EMIB-T (TSV) Advanced Packaging Technology EMIB's Next Evolution,"</td><td>ECTC 2025</td><td class="status-selected">已选-刘力铭</td></tr>
+            <tr><td>1.13</td><td>Advanced Packaging</td><td>G. Naderi et al., "Enabling Chip-To-Wafer Hybrid Bonding Scaling to 1Um Pitch With Optimal Power Delivery Using New Bond Via Architectures,"</td><td>ECTC 2025</td><td class="status-available">未选</td></tr>
+            <tr><td>1.14</td><td>Advanced Packaging</td><td>M.-H. Wu et al., "Signal, Power, and Thermal Integrity Co-Design for AI Accelerator ASIC and HBM3 on Silicon Interposer 2.5D-IC Chiplet Integration,"</td><td>ECTC 2025</td><td class="status-available">未选</td></tr>
+            
+            <tr class="category-header">
+                <td colspan="5">Chiplet Architecture (芯粒架构)</td>
+            </tr>
+            <tr><td>2.1</td><td>Chiplet Architecture</td><td>W. Gomes et al., "Ponte Vecchio: A Multi-Tile 3D Stacked Processor for Exascale Computing,"</td><td>ISSCC 2022</td><td class="status-selected">已选-田宇生</td></tr>
+            <tr><td>2.2</td><td>Chiplet Architecture</td><td>A. Smith et al., "AMD Instinct MI300 Series Modular Chiplet Package – HPC and AI Accelerator for Exa-Class Systems,"</td><td>ISSCC 2024</td><td class="status-available">未选</td></tr>
+            <tr><td>2.3</td><td>Chiplet Architecture</td><td>D. Gaitonde, "AMD Next-Generation FPGA Built from Chiplets,"</td><td>Hot Chips 2023</td><td class="status-available">未选</td></tr>
+            <tr><td>2.4</td><td>Chiplet Architecture</td><td>C. Gianos, "Architecting for Flexibility and Value with Next Gen Intel Xeon Processors,"</td><td>Hot Chips 2023</td><td class="status-available">未选</td></tr>
+            <tr><td>2.5</td><td>Chiplet Architecture</td><td>J. Wuu et al., "Coevolution of Chiplet Technology and Cache Architecture for AI and Compute,"</td><td>IEDM 2024</td><td class="status-available">未选</td></tr>
+            <tr><td>2.6</td><td>Chiplet Architecture</td><td>S. R. Srinivasa et al., "A 300MB SRAM, 20Tb/s Bandwidth Scalable Heterogenous 2.5D System Inferencing...,"</td><td>ISSCC 2025</td><td class="status-available">未选</td></tr>
+            <tr><td>2.7</td><td>Chiplet Architecture</td><td>I. Lee et al., "Extremely Large 3.5D Heterogeneous Integration for the Next-Generation Packaging Technology,"</td><td>ECTC 2023</td><td class="status-available">未选</td></tr>
+            <tr><td>2.8</td><td>Chiplet Architecture</td><td>J. Cai et al., "Gemini: Mapping and Architecture Co-exploration for Large-scale DNN Chiplet Accelerators,"</td><td>HPCA 2024</td><td class="status-selected">已选-戴东利</td></tr>
+            <tr><td>2.9</td><td>Chiplet Architecture</td><td>T. F. Wu et al., "11.2 A 3D integrated Prototype System-on-Chip for Augmented Reality Applications...,"</td><td>ISSCC 2024</td><td class="status-available">未选</td></tr>
+            <tr><td>2.10</td><td>Chiplet Architecture</td><td>P. C. Knag et al., "10.6 A Hybrid-Bonded 12.1Tops/mm2 56-Core DNN Processor with 2.5Tb/s/mm2 3D Network on Chip,"</td><td>ISSCC 2026</td><td class="status-available">未选</td></tr>
+            <tr><td>2.11</td><td>Chiplet Architecture</td><td>C.-H. Yu et al., "A Quad-Chiplet AI SoC with Full-Chip Scalable Mesh Over 16Gb/s UCIe-Advanced Die-to-Die Interface for Large-Scale AI Inferencing,"</td><td>ISSCC 2026</td><td class="status-selected">已选-陈敬逸</td></tr>
+            <tr><td>2.12</td><td>Chiplet Architecture</td><td>Xingmao Yu et al., "Cramming a Data Center into One Cabinet, a Co-Exploration of Computing and Hardware Architecture of Waferscale Chip,"</td><td>ISCA 2025</td><td class="status-available">未选</td></tr>
+            
+            <tr class="category-header">
+                <td colspan="5">Interconnect (互连)</td>
+            </tr>
+            <tr><td>3.1</td><td>Interconnect</td><td>D. Das Sharma et al., "Universal Chiplet Interconnect Express (UCIe): An Open Industry Standard for Innovations With Chiplets at Package Level,"</td><td>IEEE TCPMT 2022</td><td class="status-selected">已选-张子越</td></tr>
+            <tr><td>3.2</td><td>Interconnect</td><td>Das Sharma et al., "High-performance, power-efficient three-dimensional system-in-package designs with universal chiplet interconnect express,"</td><td>Nat Electron 2024</td><td class="status-available">未选</td></tr>
+            <tr><td>3.3</td><td>Interconnect</td><td>J. H. Cho et al., "A 1.2V 64Gb 341GB/S HBM2 stacked DRAM with spiral point-to-point TSV structure...,"</td><td>ISSCC 2018</td><td class="status-available">未选</td></tr>
+            <tr><td>3.4</td><td>Interconnect</td><td>Y. Nishi et al., "A 0.297-pJ/Bit 50.4-Gb/s/Wire Inverter-Based Short-Reach Simultaneous Bi-Directional Transceiver...,"</td><td>JSSC 2023</td><td class="status-selected">已选-冯肖迪</td></tr>
+            <tr><td>3.5</td><td>Interconnect</td><td>M.-S. Lin et al., "36.1 A 32Gb/s 10.5Tb/s/mm 0.6pJ/b UCIe-Compliant Low-Latency Interface in 3nm...,"</td><td>ISSCC 2025</td><td class="status-selected">已选-周靖钰</td></tr>
+            <tr><td>3.6</td><td>Interconnect</td><td>D. T. Melek et al., "A 0.29pJ/b 5.27Tb/s/mm UCIe Advanced Package Link in 3nm FinFET with 2.5D CoWoS Packaging,"</td><td>ISSCC 2025</td><td class="status-available">未选</td></tr>
+            <tr><td>3.7</td><td>Interconnect</td><td>K. Kim et al., "A 0.275pJ/b 42Gb/s/pin Clock-Referenced PAM3 Transceiver Tolerant to Supply Noise, Reference Offset and Crosstalk...,"</td><td>ISSCC 2025</td><td class="status-selected">已选-曾靖淞</td></tr>
+            <tr><td>3.8</td><td>Interconnect</td><td>J. Gu et al., "A 32Gb/s 0.36pJ/bit 3nm Chiplet IO Using 2.5D CoWoS Package with Real-Time and Per-Lane CDR and Bathtub Monitoring,"</td><td>VLSI 2024</td><td class="status-available">未选</td></tr>
+            <tr><td>3.9</td><td>Interconnect</td><td>W.-C. Chen et al., "8.2 A 32Gb/s 12.35Tb/s/mm2 0.36pJ/b UCIe-Like Die-to-Die Interface Featuring Edge-Triggered Transceivers in 3nm...,"</td><td>ISSCC 2026</td><td class="status-available">未选</td></tr>
+        </tbody>
+    </table>
+    
+    <p style="margin-top:20px;color:#666;font-size:12px;">
+        论文池持续更新中。如有选课学生想申请自选论文，请联系陈迟晓老师(cxchen@fudan.edu.cn)。
+    </p>
 </body>
 </html>
